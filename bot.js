@@ -6,6 +6,9 @@ const secret = require('./secret.json');
 const sql = require('sqlite');
 sql.open('./database.sqlite'); // Create the database!!
 
+const DESC_MIN_LENGTH = 30;
+const DESC_MAX_LENGTH = 255;
+
 let lastDate = [];
 
 const commands = {
@@ -112,11 +115,12 @@ const commands = {
         if (string === undefined || string === '') {
             return sendEmbed(msg, msg.guild.id, msg.channel.id, 'Please specify a description.');
         }
-        if (string.length > 255) {
-            return sendEmbed(msg, msg.guild.id, msg.channel.id, 'Description can not be more then 255 characters long.');
+		
+        if (string.length > DESC_MAX_LENGTH) {
+            return sendEmbed(msg, msg.guild.id, msg.channel.id, `Description can not be more then ${DESC_MAX_LENGTH} characters long.`);
         }
-        if (string.length < 30) {
-            return sendEmbed(msg, msg.guild.id, msg.channel.id, 'Description must have at least 30 characters in it.');
+        if (string.length < DESC_MIN_LENGTH) {
+            return sendEmbed(msg, msg.guild.id, msg.channel.id, `Description must have at least ${DESC_MIN_LENGTH} characters in it.`);
         }
         if (string.includes('http') || string.includes('@everyone') || string.includes('@here')) {
             return msg.channel.send('No links or mentions in the description please.');
