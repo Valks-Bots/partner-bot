@@ -47,51 +47,39 @@ const commands = {
         sendEmbed(msg, msg.guild.id, msg.channel.id, 'Bot can be invited with this [link](https://discordapp.com/oauth2/authorize?client_id=405811324187181066&scope=bot&permissions=8).');
     },
     'bump': (msg) => {
+		const ignoreCooldown = true;
         const now = new Date();
         let cooldown = (5 * 60 * 1000);
         if (lastDate[msg.guild.id] === undefined) {
             lastDate[msg.guild.id] = 0;
         }
-        if (now - lastDate[msg.guild.id] > cooldown) {
+        if (now - lastDate[msg.guild.id] > cooldown || ignoreCooldown) {
             // It's been more than 10 mins
             let desc = null;
             sql.all('SELECT * FROM settings').then(row => {
-                msg.guild.channels.first().createInvite().then(invite => {
-                    for (let i = 0; i < row.length; i++) {
-                        let guild = client.guilds.get(row[i].guildid);
+				msg.guild.fetchInvites().then(invites => {
+					if (invites.size > 0){
+						const invite = invites.first();
+						
+						bumpLogic(msg, row, invite);
+					} else {
+						// Create invite.
+						let channelID;
+						let channels = msg.guild.channels;
+						for (let c of channels) {
+							let channelType = c[1].type;
+							if (channelType === "text") {
+								channelID = c[0];
+								break;
+							}
+						}
 
-                        for (let a = 0; a < row.length; a++) {
-                            let temp = client.guilds.get(row[a].guildid);
-                            if (temp) {
-                                if (temp.id === msg.guild.id) {
-                                    if (!msg.guild.channels.has(row[a].partner)) {
-                                        sendEmbed(msg, msg.guild.id, msg.channel.id, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${tokens.prefix}init\`before you can bump your server.`);
-                                        lastDate[msg.guild.id] = 0;
-                                        return;
-                                    }
-                                    desc = row[a].desc;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (desc === undefined || desc === null) {
-                            lastDate[msg.guild.id] = 0;
-                            return sendEmbed(msg, msg.guild.id, msg.channel.id, `A description for ${msg.guild.name} has not been set yet. Please set one.`);
-                        }
-                        if (guild) {
-                            if (guild.channels.has(row[i].partner) && guild.id !== msg.guild.id) {
-                                let str = [
-                                    `__**${msg.guild.name}**__`,
-                                    `${desc} ${invite.url}`
-                                ];
-
-                                guild.channels.get(row[i].partner).send(str.join('\n\n'));
-                            }
-                        }
-                    }
-                    sendEmbed(msg, msg.guild.id, msg.channel.id, `Bumped sucessfully to **${row.length - 1}** guilds.`);
-                });
+						let channel = channels.get(msg.guild.systemChannelID || channelID);
+						channel.createInvite().then(invite => {
+							bumpLogic(msg, row, invite);
+						});
+					}
+				});
             });
             lastDate[msg.guild.id] = now;
         } else {
@@ -194,6 +182,43 @@ client.on('message', async msg => {
         commands[cmd](msg); // Push the cmd to the commands object.
     }
 });
+
+function bumpLogic(msg, row, invite){
+	for (let i = 0; i < row.length; i++) {
+		let guild = client.guilds.get(row[i].guildid);
+
+		for (let a = 0; a < row.length; a++) {
+			let temp = client.guilds.get(row[a].guildid);
+			if (temp) {
+				if (temp.id === msg.guild.id) {
+					if (!msg.guild.channels.has(row[a].partner)) {
+						sendEmbed(msg, msg.guild.id, msg.channel.id, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${tokens.prefix}init\`before you can bump your server.`);
+						lastDate[msg.guild.id] = 0;
+						return;
+					}
+					desc = row[a].desc;
+					break;
+				}
+			}
+		}
+
+		if (desc === undefined || desc === null) {
+			lastDate[msg.guild.id] = 0;
+			return sendEmbed(msg, msg.guild.id, msg.channel.id, `A description for ${msg.guild.name} has not been set yet. Please set one.`);
+		}
+		if (guild) {
+			if (guild.channels.has(row[i].partner) && guild.id !== msg.guild.id) {
+				let str = [
+					`__**${msg.guild.name}**__`,
+					`${desc} ${invite.url}`
+				];
+
+				guild.channels.get(row[i].partner).send(str.join('\n\n'));
+			}
+		}
+	}
+	sendEmbed(msg, msg.guild.id, msg.channel.id, `Bumped sucessfully to **${row.length - 1}** guilds.`);
+}
 
 function sendEmbed(msg, guildid, channelid, str) {
     const embed_object = {
