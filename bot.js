@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const tokens = require('./tokens.json');
-const secret = require('./secret.json');
+//const secret = require('./secret.json');
 const sql = require('sqlite');
 sql.open('./database.sqlite'); // Create the database!!
 
