@@ -1,5 +1,8 @@
+### What is Partner Bot?
+Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup on a set cooldown.
+
 ### Test it out right now!
-A prototype of the bot is hosted on heroku and has an uptime of 99%, the only disadvantage of using heroku is it resets the `database.sqlite` file every 24 hours. That's why this is nothing more then just a prototype that you can simply test out! Invite the prototype to your guild(s) with the following [invite link](https://discordapp.com/api/oauth2/authorize?client_id=549301709520765019&scope=bot&permissions=8). If you have any questions or are interested in contributing, you can contact me on discord via **valk#3277**.
+A prototype of the bot is hosted on heroku and has an uptime of 99%, the only disadvantage of using heroku is it resets the `database.sqlite` file every 24 hours. (If you are hosting the bot locally you will not have to worry about any files being reset.) That's why this is nothing more then just a prototype that you can simply test out! Invite the prototype to your guild(s) with the following [invite link](https://discordapp.com/api/oauth2/authorize?client_id=549301709520765019&scope=bot&permissions=8). If you have any questions or are interested in contributing, you can contact me on discord via **valk#3277**.
 
 Have fun advertising!
 
