@@ -47,7 +47,7 @@ const commands = {
         sendEmbed(msg, msg.guild.id, msg.channel.id, 'Bot can be invited with this [link](https://discordapp.com/oauth2/authorize?client_id=405811324187181066&scope=bot&permissions=8).');
     },
     'bump': (msg) => {
-        const ignoreCooldown = true;
+        const ignoreCooldown = false;
         const now = new Date();
         let cooldown = (5 * 60 * 1000);
         if (lastDate[msg.guild.id] === undefined) {
