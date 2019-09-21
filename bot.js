@@ -247,4 +247,4 @@ function sendEmbed(msg, guildid, channelid, str) {
     });
 }
 
-client.login(secret.key);
+client.login(process.env.BOT_TOKEN);
