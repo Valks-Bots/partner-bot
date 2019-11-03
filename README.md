@@ -1,7 +1,5 @@
 ### What is Partner Bot?
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/valkyrienyanko/partner-bot.svg)](https://greenkeeper.io/)
-
 Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup on a set cooldown.
 
 ### Test it out right now!
