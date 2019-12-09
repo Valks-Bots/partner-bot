@@ -15,4 +15,6 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 9. Invite the bot to at least 2 unique discords. Go to any channel the bot is allowed to write and read messages in. Type `v!init <channel>` where you want your channel to send and receive guild advertisements. Then create a description for your advertisement with `v!desc <description>`. When setting your description the bot will not allow you to include `@everyone`, `@here` or anything starting with `http`. You do not need to include a invite to your discord in your description, the bot will automatically do this for you. You can preview your description with `v!preview` and finally you can `v!bump` your advertisement every `300` seconds by default. You will find that the bot will send your advertisement to every guild the bot is setup in.
 
 ## Contributing
+See [CONTRIBUTORS.md](https://github.com/valkyrienyanko/partner-bot/blob/master/CONTRIBUTORS.md).
+
 If you have any questions, send me a message over discord at **valk#3277**.
