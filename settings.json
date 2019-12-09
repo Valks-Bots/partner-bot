@@ -1,0 +1,10 @@
+{
+  "prefix": "v!",
+	"owner": "319825864504377354",
+  "ad": {
+    "desc": {
+      "min-length": 30,
+      "max-length": 255
+    }
+  }
+}
