@@ -17,6 +17,7 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 11. Use `v!desc <description>` to create a description for your advertisement. (The bot will automatically include your discord invite link.)
 12. Use `v!preview` to have a look at your advertisement.
 13. Use `v!bump` to bump your advertisement. (There is a `300` second cooldown by default.)
+14. Repeat steps 10-13 in the other guild.
 
 ## Contributing
 See [CONTRIBUTORS.md](https://github.com/valkyrienyanko/partner-bot/blob/master/CONTRIBUTORS.md).
