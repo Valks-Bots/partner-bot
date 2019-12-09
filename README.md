@@ -7,7 +7,7 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 1. Clone `https://github.com/valkyrienyanko/partner-bot.git`
 2. Download and install `LTS` [Node.js](https://nodejs.org/en/)
 3. Install yarn `npm i -g yarn`
-4. Run `yarn install`
+4. Run `yarn install` in the project root directory
 5. Generate a bot token from the [Discord Developers Portal](https://discordapp.com/developers/applications/)
 6. Create `.env` file in root of project and put `BOT_TOKEN=YOURTOKENHERE` inside.
 7. Start server with `yarn dev:server`
