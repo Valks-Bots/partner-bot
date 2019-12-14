@@ -6,7 +6,7 @@ const sql = require('sqlite')
 
 require('dotenv').config()
 
-sql.open('./database.sqlite') // Create the database!!
+sql.open('./database.sqlite') // Create database
 
 const DESC_MIN_LENGTH = 30
 const DESC_MAX_LENGTH = 255
@@ -18,7 +18,7 @@ const commands = {
     msg.channel.send({
       embed: {
         title: 'Help',
-        description: `The bot was created by **valk#7218**, if you have any questions or would like to suggest new features or report bugs, please send them a direct message. All commands start with \`${settings.prefix}\`.`,
+        description: `The bot was created by **valk#3277**, if you have any questions or would like to suggest new features or report bugs, please send them a direct message. All commands start with \`${settings.prefix}\`.`,
         fields: [{
           name: 'invite',
           value: 'A way to invite this bot to your own guild.',
@@ -49,7 +49,8 @@ const commands = {
     })
   },
   invite: (msg) => {
-    sendEmbed(msg, msg.guild.id, msg.channel.id, 'Bot can be invited with this [link](https://discordapp.com/oauth2/authorize?client_id=405811324187181066&scope=bot&permissions=8).')
+    sendEmbed(msg, 'I\'ve sent you a private message with the bot invite link.')
+    msg.author.send(`https://discordapp.com/api/oauth2/authorize?client_id=${client.user.id}&scope=bot&permissions=27649`)
   },
   bump: (msg) => {
     const ignoreCooldown = false
@@ -62,6 +63,11 @@ const commands = {
       // It's been more than 10 mins
       sql.all('SELECT * FROM settings').then(row => {
         msg.guild.fetchInvites().then(invites => {
+          if (row.length - 1 <= 0) {
+            sendEmbed(msg, 'There are no other guilds for your advertisement to go, `v!invite` and setup the bot on other guilds before trying again.')
+            return
+          }
+          
           if (invites.size > 0) {
             const invite = invites.first()
 
@@ -81,6 +87,7 @@ const commands = {
             const channel = channels.get(msg.guild.systemChannelID || channelID)
             channel.createInvite().then(invite => {
               bumpLogic(msg, row, invite)
+              sendEmbed(msg, `Bumped sucessfully to **${row.length - 1}** guilds.`)
             })
           }
         })
@@ -89,57 +96,57 @@ const commands = {
     } else {
       // It's been less than 10 mins
       const remaining = Math.round(((cooldown) - (now - lastDate[msg.guild.id])) / 1000)
-      sendEmbed(msg, msg.guild.id, msg.channel.id, `You must wait **${remaining} seconds** before you can use this command again.`)
+      sendEmbed(msg, `You must wait **${remaining} seconds** before you can use this command again.`)
     }
   },
   init: (msg) => {
     if (!msg.member.hasPermission('ADMINISTRATOR')) {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, 'You need to have the administrator permission to do this.')
+      return sendEmbed(msg, 'You need to have the administrator permission to do this.')
     }
     const args = msg.content.slice(settings.prefix.length).trim().split(/ +/g).slice(1)
     if (args[0] === undefined) {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, 'Please specifty a channel.')
+      return sendEmbed(msg, 'Please specify a channel.')
     }
     const channel = client.guilds.get(msg.guild.id).channels.find('name', args[0])
     if (channel) {
       sql.run('UPDATE settings SET partner = ? WHERE guildid = ?', [channel.id, msg.guild.id])
-      sendEmbed(msg, msg.guild.id, msg.channel.id, 'Channel sucessfully synchronized.')
+      sendEmbed(msg, 'Success! Now go ahead and give your advertisement a `v!desc` then `v!bump` it!')
     } else {
-      sendEmbed(msg, msg.guild.id, msg.channel.id, 'Invalid channel.')
+      sendEmbed(msg, 'Invalid channel.')
     }
   },
   desc: (msg) => {
     if (!msg.member.hasPermission('ADMINISTRATOR')) {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, 'You need to have the administrator permission to do this.')
+      return sendEmbed(msg, 'You need to have the administrator permission to do this.')
     }
     const desc = msg.content.slice(settings.prefix.length).trim().split(/ +/g).slice(1).join(' ')
     if (desc === undefined || desc === '') {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, 'Please specify a description.')
+      return sendEmbed(msg, 'Please specify a description.')
     }
 
     if (desc.length > settings.ad.desc.max) {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, `Description can not be more then ${DESC_MAX_LENGTH} characters long.`)
+      return sendEmbed(msg, `Description can not be more then ${DESC_MAX_LENGTH} characters long.`)
     }
     if (desc.length < settings.ad.desc.min) {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, `Description must have at least ${DESC_MIN_LENGTH} characters in it.`)
+      return sendEmbed(msg, `Description must have at least ${DESC_MIN_LENGTH} characters in it.`)
     }
     if (desc.includes('http') || desc.includes('@everyone') || desc.includes('@here')) {
       return msg.channel.send('No links or mentions in the description please.')
     }
     sql.run('UPDATE settings SET desc = ? WHERE guildid = ?', [desc, msg.guild.id])
-    sendEmbed(msg, msg.guild.id, msg.channel.id, 'Description sucessfully updated.')
+    sendEmbed(msg, 'Description sucessfully updated.')
   },
   preview: (msg) => {
     if (!msg.member.hasPermission('ADMINISTRATOR')) {
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, 'You need to have the administrator permission to do this.')
+      return sendEmbed(msg, 'You need to have the administrator permission to do this.')
     }
     sql.get('SELECT * FROM settings WHERE guildid = ?', [msg.guild.id]).then(row => {
       const str = [
-                `__**${msg.guild.name}**__`,
-                `${row.desc} [Invite]`
+                `__**${msg.guild.name}**__\n`,
+                `${row.desc} \`[Invite will Appear Here]\``
       ]
 
-      msg.channel.send(str.join('\n\n'))
+      msg.channel.send(str.join('\n'))
     })
   }
 }
@@ -147,7 +154,7 @@ const commands = {
 client.on('ready', () => {
   // We have connected!
   client.user.setActivity(`${settings.prefix}help`, {
-    url: 'https://www.twitch.tv/valkyrienyanko'
+    type: 'PLAYING'
   })
   console.log(`${client.user.tag} running on ${client.guilds.size} guilds with ${client.users.size} users.`)
   // Create the tables if they do not exist.
@@ -198,7 +205,7 @@ function bumpLogic (msg, row, invite) {
       if (temp) {
         if (temp.id === msg.guild.id) {
           if (!msg.guild.channels.has(row[a].partner)) {
-            sendEmbed(msg, msg.guild.id, msg.channel.id, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${settings.prefix}init\`before you can bump your server.`)
+            sendEmbed(msg, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${settings.prefix}init\`before you can bump your server.`)
             lastDate[msg.guild.id] = 0
             return
           }
@@ -210,7 +217,7 @@ function bumpLogic (msg, row, invite) {
 
     if (desc === undefined || desc === null) {
       lastDate[msg.guild.id] = 0
-      return sendEmbed(msg, msg.guild.id, msg.channel.id, `A description for ${msg.guild.name} has not been set yet. Please set one.`)
+      return sendEmbed(msg, `A description for ${msg.guild.name} has not been set yet. Please set one.`)
     }
     if (guild) {
       if (guild.channels.has(row[i].partner) && guild.id !== msg.guild.id) {
@@ -223,14 +230,12 @@ function bumpLogic (msg, row, invite) {
       }
     }
   }
-  sendEmbed(msg, msg.guild.id, msg.channel.id, `Bumped sucessfully to **${row.length - 1}** guilds.`)
 }
 
-function sendEmbed (msg, guildid, channelid, str) {
+function sendEmbed (msg, str) {
   const embedObject = {
     embed: {
-      description: str,
-      color: 0xffc4f9
+      description: str
     }
   }
 
@@ -242,11 +247,7 @@ function sendEmbed (msg, guildid, channelid, str) {
     return msg.channel.send('I need manage messages permission.')
   }
 
-  const guild = client.guilds.get(guildid)
-
-  guild.channels.get(channelid).send(embedObject).then(m => {
-
-  })
+  msg.channel.send(embedObject)
 }
 
 client.login(process.env.BOT_TOKEN)

@@ -9,9 +9,9 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 3. Install yarn `npm i -g yarn`
 4. Run `yarn install` in the project root directory
 5. Generate a bot token from the [Discord Developers Portal](https://discordapp.com/developers/applications/)
-6. Create `.env` file in root of project and put `BOT_TOKEN=YOURTOKENHERE` inside.
+6. Update `.env` with your bot token
 7. Start server with `yarn dev:server`
-8. Create an invite link for the bot by grabbing its token ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=ID&scope=bot&permissions=8`
+8. Create an invite link for the bot by grabbing its token ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=ID&scope=bot&permissions=27649`
 9. Invite the bot to at least `2` unique discords. 
 10. Use **v!init \<channel\>** in the channel you want to send and receive guild advertisements.
 11. Use **v!desc \<description\>** to create a description for your advertisement. (The bot will automatically include your discord invite link.)
