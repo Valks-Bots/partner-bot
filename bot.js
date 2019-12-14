@@ -121,7 +121,7 @@ const commands = {
     }
     const desc = msg.content.slice(settings.prefix.length).trim().split(/ +/g).slice(1).join(' ')
     if (desc === undefined || desc === '') {
-      return sendEmbed(msg, 'Please specify a description.')
+      return sendEmbed(msg, 'Specify a guild description. Note that your guild invite will be attached automatically.')
     }
 
     if (desc.length > settings.ad.desc.max) {
