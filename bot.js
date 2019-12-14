@@ -41,7 +41,12 @@ const commands = {
         },
         {
           name: 'bump',
-          value: 'Advertise your guild to every other guild that has the bot setup.',
+          value: 'Bump your ad to all the other guilds.',
+          inline: true
+        },
+        {
+          name: 'help',
+          value: 'Useless command.',
           inline: true
         }
         ]
