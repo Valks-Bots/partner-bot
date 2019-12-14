@@ -4,7 +4,7 @@
   "description": "A partner automation discord bot.",
   "main": "bot.js",
   "scripts": {
-    "preinstall": "copy nul .env && echo BOT_TOKEN= >> .env && cls",
+    "preinstall": "copy nul .env && echo BOT_TOKEN=>> .env && cls",
     "dev:server": "nodemon --quiet ."
   },
   "author": "valkyrienyanko",
