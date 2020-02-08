@@ -16,6 +16,6 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 10. Continue setup with `v!help`
 
 ## Contributing
-See [CONTRIBUTORS.md](https://github.com/valkyrienyanko/partner-bot/blob/master/CONTRIBUTORS.md).
+See [CONTRIBUTING.md](https://github.com/valkyrienyanko/partner-bot/blob/master/CONTRIBUTING.md).
 
 If you have any questions, send me a message over discord at **valk#3277**.
