@@ -19,3 +19,6 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 See [CONTRIBUTING.md](https://github.com/valkyrienyanko/partner-bot/blob/master/CONTRIBUTING.md).
 
 If you have any questions, send me a message over discord at **valk#3277**.
+
+## Notice
+I've recently found out that some cheeky individuals are publishing this bots source on third party bot sites claiming to make it their own without making any major changes to the bots source (only changing the author name to be their own). Please do not change the author name if you're going to do that. You may only change the author name if and only if you make noticable changes to the source. The changes can be as small as changing the content of every message to be your own but just changing the author and nothing else is just plain dirty.
