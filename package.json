@@ -4,14 +4,15 @@
   "description": "A partner automation discord bot.",
   "main": "bot.js",
   "scripts": {
-    "preinstall": "copy nul .env && echo BOT_TOKEN=>> .env && cls",
     "dev:server": "nodemon --quiet ."
   },
   "author": "valkyrienyanko",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "discord.js": "^12.0.1",
     "dotenv": "^8.2.0",
+    "pretty-ms": "^6.0.1",
     "sqlite": "^3.0.3"
   },
   "devDependencies": {

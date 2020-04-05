@@ -3,6 +3,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const settings = require('./settings.json')
 const sql = require('sqlite')
+const prettyMS = require('pretty-ms')
 
 require('dotenv').config()
 
@@ -65,7 +66,7 @@ const commands = {
       lastDate[msg.guild.id] = 0
     }
     if (now - lastDate[msg.guild.id] > cooldown || ignoreCooldown) {
-      // It's been more than 10 mins
+      // It's been more than the set cooldown
       sql.all('SELECT * FROM settings').then(row => {
         msg.guild.fetchInvites().then(invites => {
           if (row.length - 1 <= 0) {
@@ -80,7 +81,7 @@ const commands = {
           } else {
             // Create invite.
             let channelID
-            const channels = msg.guild.channels
+            const channels = msg.guild.channels.cache
             for (const c of channels) {
               const channelType = c[1].type
               if (channelType === 'text') {
@@ -99,9 +100,9 @@ const commands = {
       })
       lastDate[msg.guild.id] = now
     } else {
-      // It's been less than 10 mins
-      const remaining = Math.round(((cooldown) - (now - lastDate[msg.guild.id])) / 1000)
-      sendEmbed(msg, `You must wait **${remaining} seconds** before you can use this command again.`)
+      // It's been less than the set cooldown.
+      const remaining = prettyMS(Math.round((cooldown) - (now - lastDate[msg.guild.id])), { verbose: true, unitCount: 3, secondsDecimalDigits: 0 })
+      sendEmbed(msg, `You must wait **${remaining}** before you can use this command again.`)
     }
   },
   init: (msg) => {
@@ -112,7 +113,8 @@ const commands = {
     if (args[0] === undefined) {
       return sendEmbed(msg, 'Please specify a channel.')
     }
-    const channel = client.guilds.get(msg.guild.id).channels.find('name', args[0])
+	console.log(args[0].replace(/[<#>]/g, ''))
+    const channel = client.guilds.cache.get(msg.guild.id).channels.cache.find(channel => [channel.name, channel.id].includes(args[0].replace(/[<#>]/g, '')))
     if (channel) {
       sql.run('UPDATE settings SET partner = ? WHERE guildid = ?', [channel.id, msg.guild.id])
       sendEmbed(msg, 'Success! Now go ahead and give your advertisement a `v!desc` then `v!bump` it!')
@@ -157,14 +159,15 @@ const commands = {
 }
 
 client.on('ready', () => {
+  console.clear()
   // We have connected!
   client.user.setActivity(`${settings.prefix}help`, {
     type: 'PLAYING'
   })
-  console.log(`${client.user.tag} running on ${client.guilds.size} guilds with ${client.users.size} users.`)
+  console.log(`${client.user.tag} running on ${client.guilds.cache.size} guilds with ${client.users.cache.size} users.`)
   // Create the tables if they do not exist.
   sql.run('CREATE TABLE IF NOT EXISTS settings (guildid TEXT UNIQUE, partner CHARACTER, desc VARCHAR)').then(() => {
-    for (const guild of client.guilds.values()) {
+    for (const guild of client.guilds.cache.values()) {
       sql.run('INSERT OR IGNORE INTO settings (guildid) VALUES (?)', [guild.id])
     }
   })
@@ -202,15 +205,15 @@ client.on('message', async msg => {
 
 function bumpLogic (msg, row, invite) {
   for (let i = 0; i < row.length; i++) {
-    const guild = client.guilds.get(row[i].guildid)
+    const guild = client.guilds.cache.get(row[i].guildid)
     let desc = null
 
     for (let a = 0; a < row.length; a++) {
-      const temp = client.guilds.get(row[a].guildid)
+      const temp = client.guilds.cache.get(row[a].guildid)
       if (temp) {
         if (temp.id === msg.guild.id) {
-          if (!msg.guild.channels.has(row[a].partner)) {
-            sendEmbed(msg, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${settings.prefix}init\`before you can bump your server.`)
+          if (!msg.guild.channels.cache.has(row[a].partner)) {
+            sendEmbed(msg, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${settings.prefix}init\` before you can bump your server.`)
             lastDate[msg.guild.id] = 0
             return
           }
@@ -225,16 +228,18 @@ function bumpLogic (msg, row, invite) {
       return sendEmbed(msg, `A description for ${msg.guild.name} has not been set yet. Please set one.`)
     }
     if (guild) {
-      if (guild.channels.has(row[i].partner) && guild.id !== msg.guild.id) {
+      if (guild.channels.cache.has(row[i].partner) && guild.id !== msg.guild.id) {
         const str = [
                     `__**${msg.guild.name}**__`,
                     `${desc} ${invite.url}`
         ]
 
-        guild.channels.get(row[i].partner).send(str.join('\n\n'))
+        guild.channels.cache.get(row[i].partner).send(str.join('\n\n'))
       }
     }
   }
+  
+  sendEmbed(msg, `Bumped to ${row.length - 1} guilds!`)
 }
 
 function sendEmbed (msg, str) {
