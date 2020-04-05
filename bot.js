@@ -18,7 +18,7 @@ const commands = {
   help: (msg) => {
     msg.channel.send({
       embed: {
-        title: 'Help',
+        title: 'Help', /*Please do not modify or remove the author name below. You can talk to me through Discord if you have any questions.*/
         description: `The bot was created by **valk#3277**, if you have any questions or would like to suggest new features or report bugs, please send them a direct message. All commands start with \`${settings.prefix}\`.`,
         fields: [{
           name: 'invite',
