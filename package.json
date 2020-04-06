@@ -5,15 +5,18 @@
   "main": "bot.js",
   "scripts": {
     "dev:server": "nodemon --quiet .",
-	"dev:lint": "eslint .",
-	"dev:lint:fix": "eslint --fix ."
+    "dev:lint": "eslint .",
+    "dev:lint:fix": "eslint --fix ."
   },
   "author": "valkyrienyanko",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
+    "chalk": "^4.0.0",
     "dateformat": "^3.0.3",
     "discord.js": "^12.0.1",
     "dotenv": "^8.2.0",
+    "moment": "^2.24.0",
     "pretty-ms": "^6.0.1",
     "sqlite": "^3.0.3"
   },
