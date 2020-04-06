@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2019 valkyrienyanko All rights reserved.
+ *
+ * You may not, unless given explicit permission from myself, make a profit off the following source or modify or remove the author name.
+ */
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const settings = require('./settings.json')
@@ -12,6 +17,116 @@ const DESC_MIN_LENGTH = 30
 const DESC_MAX_LENGTH = 255
 
 const lastDate = []
+
+client.on('ready', () => {
+  console.clear()
+  
+  // Copyright Notice - Do not Remove
+  console.log('------------------------------------------------------------------------')
+  console.log('Copyright © 2019 valkyrienyanko All rights reserved.\n')
+  console.log('You may not, unless given explicit permission from myself, make a profit')
+  console.log('off the following source or modify or remove the author name.')
+  console.log('------------------------------------------------------------------------\n\n')
+  
+  // We have connected!
+  client.user.setActivity(`${settings.prefix}help`, {
+    type: 'PLAYING'
+  })
+  console.log(`${client.user.tag} running on ${client.guilds.cache.size} guilds with ${client.users.cache.size} users.`)
+  // Create the tables if they do not exist.
+  sql.run('CREATE TABLE IF NOT EXISTS settings (guildid TEXT UNIQUE, partner CHARACTER, desc VARCHAR)').then(() => {
+    for (const guild of client.guilds.cache.values()) {
+      sql.run('INSERT OR IGNORE INTO settings (guildid) VALUES (?)', [guild.id])
+    }
+  })
+})
+
+client.on('guildCreate', (guild) => {
+  console.log(`I have joined the guild ${guild.name}`)
+  sql.run('INSERT OR IGNORE INTO settings (guildid) VALUES (?)', [guild.id])
+})
+
+client.on('guildDelete', (guild) => {
+  console.log(`I have left the guild ${guild.name}`)
+  sql.run('DELETE * FROM settings WHERE guildid = ?', [guild.id])
+})
+
+client.on('message', async msg => {
+  // Handle the bot and channel type.
+  if (msg.author.bot) return // We don't want the bot reacting to itself..
+  if (msg.channel.type !== 'text') return // Lets focus on the use of text channels.
+
+  if (msg.content.startsWith(settings.prefix + 'ping')) {
+    const m = await msg.channel.send('Ping?')
+    m.edit(`Pong! Latency is ${m.createdTimestamp - msg.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms.`)
+    return
+  }
+
+  // Handle Commands Module
+  if (!msg.content.startsWith(settings.prefix)) return // The start of commands.
+  console.log(`[${msg.guild.name}] ${msg.author.tag} >> ${msg.content}`) // Log commands.
+  const cmd = msg.content.toLowerCase().slice(settings.prefix.length).split(' ')[0] // Grab the command.
+  if (commands.hasOwnProperty(cmd)) { // Check to see if commands has the command.
+    commands[cmd](msg) // Push the cmd to the commands object.
+  }
+})
+
+function sendEmbed (msg, str) {
+  const embedObject = {
+    embed: {
+      description: str
+    }
+  }
+
+  if (!msg.channel.permissionsFor(client.user).has('EMBED_LINKS')) {
+    return msg.channel.send('I need the embed links permission.')
+  }
+
+  if (!msg.channel.permissionsFor(client.user).has('MANAGE_MESSAGES')) {
+    return msg.channel.send('I need manage messages permission.')
+  }
+
+  msg.channel.send(embedObject)
+}
+
+function bumpLogic (msg, row, invite) {
+  for (let i = 0; i < row.length; i++) {
+    const guild = client.guilds.cache.get(row[i].guildid)
+    let desc = null
+
+    for (let a = 0; a < row.length; a++) {
+      const temp = client.guilds.cache.get(row[a].guildid)
+      if (temp) {
+        if (temp.id === msg.guild.id) {
+          if (!msg.guild.channels.cache.has(row[a].partner)) {
+            sendEmbed(msg, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${settings.prefix}init\` before you can bump your server.`)
+            lastDate[msg.guild.id] = 0
+            return
+          }
+          desc = row[a].desc
+          break
+        }
+      }
+    }
+
+    if (desc === undefined || desc === null) {
+      lastDate[msg.guild.id] = 0
+      return sendEmbed(msg, `A description for ${msg.guild.name} has not been set yet. Please set one.`)
+    }
+    if (guild) {
+      if (guild.channels.cache.has(row[i].partner) && guild.id !== msg.guild.id) {
+        const str = [
+                    `__**${msg.guild.name}**__`,
+                    `${desc} ${invite.url}`
+        ]
+
+        guild.channels.cache.get(row[i].partner).send(str.join('\n\n'))
+      }
+    }
+  }
+  
+  sendEmbed(msg, `Bumped to ${row.length - 1} guilds!`)
+}
 
 const commands = {
   help: (msg) => {
@@ -155,108 +270,6 @@ const commands = {
       msg.channel.send(str.join('\n'))
     })
   }
-}
-
-client.on('ready', () => {
-  console.clear()
-  // We have connected!
-  client.user.setActivity(`${settings.prefix}help`, {
-    type: 'PLAYING'
-  })
-  console.log(`${client.user.tag} running on ${client.guilds.cache.size} guilds with ${client.users.cache.size} users.`)
-  // Create the tables if they do not exist.
-  sql.run('CREATE TABLE IF NOT EXISTS settings (guildid TEXT UNIQUE, partner CHARACTER, desc VARCHAR)').then(() => {
-    for (const guild of client.guilds.cache.values()) {
-      sql.run('INSERT OR IGNORE INTO settings (guildid) VALUES (?)', [guild.id])
-    }
-  })
-})
-
-client.on('guildCreate', (guild) => {
-  console.log(`I have joined the guild ${guild.name}`)
-  sql.run('INSERT OR IGNORE INTO settings (guildid) VALUES (?)', [guild.id])
-})
-
-client.on('guildDelete', (guild) => {
-  console.log(`I have left the guild ${guild.name}`)
-  sql.run('DELETE * FROM settings WHERE guildid = ?', [guild.id])
-})
-
-client.on('message', async msg => {
-  // Handle the bot and channel type.
-  if (msg.author.bot) return // We don't want the bot reacting to itself..
-  if (msg.channel.type !== 'text') return // Lets focus on the use of text channels.
-
-  if (msg.content.startsWith(settings.prefix + 'ping')) {
-    const m = await msg.channel.send('Ping?')
-    m.edit(`Pong! Latency is ${m.createdTimestamp - msg.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms.`)
-    return
-  }
-
-  // Handle Commands Module
-  if (!msg.content.startsWith(settings.prefix)) return // The start of commands.
-  console.log(`[${msg.guild.name}] ${msg.author.tag} >> ${msg.content}`) // Log commands.
-  const cmd = msg.content.toLowerCase().slice(settings.prefix.length).split(' ')[0] // Grab the command.
-  if (commands.hasOwnProperty(cmd)) { // Check to see if commands has the command.
-    commands[cmd](msg) // Push the cmd to the commands object.
-  }
-})
-
-function bumpLogic (msg, row, invite) {
-  for (let i = 0; i < row.length; i++) {
-    const guild = client.guilds.cache.get(row[i].guildid)
-    let desc = null
-
-    for (let a = 0; a < row.length; a++) {
-      const temp = client.guilds.cache.get(row[a].guildid)
-      if (temp) {
-        if (temp.id === msg.guild.id) {
-          if (!msg.guild.channels.cache.has(row[a].partner)) {
-            sendEmbed(msg, `You must first initialize a channel for the bot in ${msg.guild.name} with \`${settings.prefix}init\` before you can bump your server.`)
-            lastDate[msg.guild.id] = 0
-            return
-          }
-          desc = row[a].desc
-          break
-        }
-      }
-    }
-
-    if (desc === undefined || desc === null) {
-      lastDate[msg.guild.id] = 0
-      return sendEmbed(msg, `A description for ${msg.guild.name} has not been set yet. Please set one.`)
-    }
-    if (guild) {
-      if (guild.channels.cache.has(row[i].partner) && guild.id !== msg.guild.id) {
-        const str = [
-                    `__**${msg.guild.name}**__`,
-                    `${desc} ${invite.url}`
-        ]
-
-        guild.channels.cache.get(row[i].partner).send(str.join('\n\n'))
-      }
-    }
-  }
-  
-  sendEmbed(msg, `Bumped to ${row.length - 1} guilds!`)
-}
-
-function sendEmbed (msg, str) {
-  const embedObject = {
-    embed: {
-      description: str
-    }
-  }
-
-  if (!msg.channel.permissionsFor(client.user).has('EMBED_LINKS')) {
-    return msg.channel.send('I need the embed links permission.')
-  }
-
-  if (!msg.channel.permissionsFor(client.user).has('MANAGE_MESSAGES')) {
-    return msg.channel.send('I need manage messages permission.')
-  }
-
-  msg.channel.send(embedObject)
 }
 
 client.login(process.env.BOT_TOKEN)
