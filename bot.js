@@ -20,14 +20,14 @@ const lastDate = []
 
 client.on('ready', () => {
   console.clear()
-  
+
   // Copyright Notice - Do not Remove
   console.log('------------------------------------------------------------------------')
   console.log('Copyright © 2019 valkyrienyanko All rights reserved.\n')
   console.log('You may not, unless given explicit permission from myself, make a profit')
   console.log('off the following source or modify or remove the author name.')
   console.log('------------------------------------------------------------------------\n\n')
-  
+
   // We have connected!
   client.user.setActivity(`${settings.prefix}help`, {
     type: 'PLAYING'
@@ -124,7 +124,7 @@ function bumpLogic (msg, row, invite) {
       }
     }
   }
-  
+
   sendEmbed(msg, `Bumped to ${row.length - 1} guilds!`)
 }
 
@@ -132,7 +132,7 @@ const commands = {
   help: (msg) => {
     msg.channel.send({
       embed: {
-        title: 'Help', /*Please do not modify or remove the author name below. You can talk to me through Discord if you have any questions.*/
+        title: 'Help', /* Please do not modify or remove the author name below. You can talk to me through Discord if you have any questions. */
         description: `The bot was created by **valk#3277**, if you have any questions or would like to suggest new features or report bugs, please send them a direct message. All commands start with \`${settings.prefix}\`.`,
         fields: [{
           name: 'invite',
@@ -187,7 +187,7 @@ const commands = {
             sendEmbed(msg, 'There are no other guilds for your advertisement to go, `v!invite` and setup the bot on other guilds before trying again.')
             return
           }
-          
+
           if (invites.size > 0) {
             const invite = invites.first()
 
@@ -227,7 +227,7 @@ const commands = {
     if (args[0] === undefined) {
       return sendEmbed(msg, 'Please specify a channel.')
     }
-	console.log(args[0].replace(/[<#>]/g, ''))
+    console.log(args[0].replace(/[<#>]/g, ''))
     const channel = client.guilds.cache.get(msg.guild.id).channels.cache.find(channel => [channel.name, channel.id].includes(args[0].replace(/[<#>]/g, '')))
     if (channel) {
       sql.run('UPDATE settings SET partner = ? WHERE guildid = ?', [channel.id, msg.guild.id])

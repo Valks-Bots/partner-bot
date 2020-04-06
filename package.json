@@ -4,7 +4,9 @@
   "description": "A partner automation discord bot.",
   "main": "bot.js",
   "scripts": {
-    "dev:server": "nodemon --quiet ."
+    "dev:server": "nodemon --quiet .",
+	"dev:lint": "eslint .",
+	"dev:lint:fix": "eslint --fix ."
   },
   "author": "valkyrienyanko",
   "license": "ISC",
