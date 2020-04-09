@@ -3,10 +3,7 @@ exports.normal = () => {
 }
 
 exports.custom = (client, msg, emojiID) => {
-  if (client.guilds.cache.get(client.config.botGuildID))
-    msg.react(client.guilds.cache.get(client.config.botGuildID).emojis.cache.get(emojiID)).catch(console.error)
-  else
-    client.logger.log('You won\'t stop seeing this message until you give the bot a trash emote ID to react with.')
+  msg.react(client.guilds.cache.get(client.config.botGuildID).emojis.cache.get(emojiID)).catch(console.error)
 }
 
 exports.guild = (message, msg, emojiID) => {
