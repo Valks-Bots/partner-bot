@@ -31,9 +31,8 @@ const init = async () => {
 
   // Copyright Notice - Do not Remove
   console.log('------------------------------------------------------------------------')
-  console.log('Copyright © 2019 valkyrienyanko All rights reserved.\n')
-  console.log('You may not, unless given explicit permission from myself, make a profit')
-  console.log('off the following source or modify or remove the author name.')
+  console.log('If you need any help, you can talk to me through discord at valk#3277')
+  console.log('You can also email me at sebastianbelle074@gmail.com')
   console.log('------------------------------------------------------------------------')
 
   const loader = await client.loader
