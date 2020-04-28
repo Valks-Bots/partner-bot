@@ -75,19 +75,21 @@ function bumpLogic (client, message, row, invite) {
     }
     if (guild) {
       if (guild.channels.cache.has(row[i].partner) && guild.id !== message.guild.id) {
-        guild.channels.cache.get(row[i].partner).send({embed: {
-          title: message.guild.name,
-          description: desc,
-          fields: [
-            {
-              name: 'Invite',
-              value: invite.url
+        guild.channels.cache.get(row[i].partner).send({
+          embed: {
+            title: message.guild.name,
+            description: desc,
+            fields: [
+              {
+                name: 'Invite',
+                value: invite.url
+              }
+            ],
+            thumbnail: {
+              url: message.guild.iconURL()
             }
-          ],
-          thumbnail: {
-            url: message.guild.iconURL()
           }
-        }})
+        })
       }
     }
   }
