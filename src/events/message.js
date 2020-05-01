@@ -11,13 +11,17 @@ module.exports = async (client, message) => {
   if (!cmd || command === '') return
 
   // Delete the executors message.
-  if (client.config.deleteCommands && !message.deleted) message.delete()
+  if (client.config.deleteCommands && !message.deleted) {
+    if (message.deletable) {
+      message.delete().catch(console.error)
+    }
+  }
 
   // Is the command only available in guilds?
   if (!message.guild && cmd.conf.guildOnly) return client.embed.send(message, { desc: 'This command is unavailable via private messages. Please run this command in a guild.' })
 
   // Is the bot currently under going maintenence?
-  if (client.config.botMaintenance && message.author.id != client.config.ownerID) return client.embed.send(message, { desc: 'The bot can currently only be run by the bot owner. Sorry for the inconvience.' })
+  if (client.config.botMaintenance && message.author.id !== client.config.ownerID) return client.embed.send(message, { desc: 'The bot can currently only be run by the bot owner. Sorry for the inconvience.' })
 
   // Check command cooldown
   // client.cooldowns[message.author.id] = ...

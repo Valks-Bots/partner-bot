@@ -9,9 +9,9 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 3. Install yarn `npm i -g yarn`
 4. Run `yarn install` in the project root directory (If done correctly you should notice a `.env` file in your bot directory)
 5. Generate a bot token from the [Discord Developers Portal](https://discordapp.com/developers/applications/)
-6. Create a `.env` file with the following content inside (`BOT_TOKEN=BotTokenHere`)
+6. Create a `.env` file in the `src` folder with the following content inside (`BOT_TOKEN=BotTokenHere`)
 7. Start server with `yarn dev:server`
-8. Create an invite link for the bot by grabbing its token ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=ID&scope=bot&permissions=27649`
+8. Create an invite link for the bot by grabbing its token ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=ID&scope=bot&permissions=27681`
 9. Invite the bot to at least `2` unique guilds
 10. Continue setup with `v!help`
 

@@ -5,6 +5,12 @@ exports.run = async (client, message, args) => {
   const ignoreCooldown = false
   const now = new Date()
   const cooldown = (5 * 60 * 1000)
+
+  if (!message.guild.me.hasPermission('CREATE_INSTANT_INVITE') || !message.guild.me.hasPermission('MANAGE_GUILD')) {
+    client.embed.send(message, { desc: 'I need the `CREATE_INSTANT_INVITE` and `MANAGE_GUILD` permissions to bump.' })
+    return
+  }
+
   if (lastDate[message.guild.id] === undefined) {
     lastDate[message.guild.id] = 0
   }
@@ -37,11 +43,11 @@ exports.run = async (client, message, args) => {
           channel.createInvite().then(invite => {
             bumpLogic(client, message, row, invite)
             client.embed.send(message, { desc: `Bumped sucessfully to **${row.length - 1}** guilds.` })
+            lastDate[message.guild.id] = now
           })
         }
-      })
+      }).catch(console.error)
     })
-    lastDate[message.guild.id] = now
   } else {
     // It's been less than the set cooldown.
     const remaining = prettyMS(Math.round((cooldown) - (now - lastDate[message.guild.id])), { verbose: true, unitCount: 3, secondsDecimalDigits: 0 })
@@ -59,7 +65,7 @@ function bumpLogic (client, message, row, invite) {
       if (temp) {
         if (temp.id === message.guild.id) {
           if (!message.guild.channels.cache.has(row[a].partner)) {
-            client.embed.send(message, { desc: `You must first initialize a channel for the bot in ${msg.guild.name} with \`${client.config.prefix}init\` before you can bump your server.` })
+            client.embed.send(message, { desc: `You must first initialize a channel for the bot in ${message.guild.name} with \`${client.config.prefix}init\` before you can bump your server.` })
             lastDate[message.guild.id] = 0
             return
           }

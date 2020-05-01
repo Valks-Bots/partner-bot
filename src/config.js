@@ -1,11 +1,11 @@
 const config = {
   statusURL: 'https://srhpyqt94yxb.statuspage.io/api/v2/status.json',
-  prefix: 'v!',
+  prefix: 't!',
   botGuildID: '689327932799451186',
   ownerID: '453640548985602048',
   ad: {
     desc: {
-      min_length: 30,
+      min_length: 10,
       max_length: 255
     }
   },
@@ -22,38 +22,6 @@ const config = {
       check: () => {
         return new Promise((resolve, reject) => {
           resolve(true)
-        })
-      }
-    },
-    {
-      level: 2,
-      name: 'Moderator',
-      check: (client, message) => {
-        return new Promise((resolve, reject) => {
-          client.database.get('SELECT modrole FROM settings WHERE guildid = ?', [message.guild.id]).then(row => {
-            const modRole = message.guild.roles.cache.find(r => r.id === row.modrole)
-            if (modRole === undefined) {
-              reject(null)
-            } else {
-              resolve(message.member.roles.cache.has(modRole.id))
-            }
-          })
-        })
-      }
-    },
-    {
-      level: 3,
-      name: 'Administrator',
-      check: (client, message) => {
-        return new Promise((resolve, reject) => {
-          client.database.get('SELECT adminrole FROM settings WHERE guildid = ?', [message.guild.id]).then(row => {
-            const adminRole = message.guild.roles.cache.find(r => r.id === row.adminrole)
-            if (adminRole === undefined) {
-              reject(null)
-            } else {
-              resolve(message.member.roles.cache.has(adminRole.id))
-            }
-          })
         })
       }
     },
