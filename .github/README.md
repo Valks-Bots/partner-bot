@@ -13,7 +13,7 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 7. Start server with `yarn dev:server`
 8. Create an invite link for the bot by grabbing its token ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=ID&scope=bot&permissions=27681`
 9. Invite the bot to at least `2` unique guilds
-10. Continue setup with `v!help`
+10. Continue setup with `t!help` (You can change the prefix in the config)
 
 ## Contributing
 See [CONTRIBUTING.md](https://github.com/valkyrienyanko/partner-bot/blob/master/.github/CONTRIBUTING.md).
