@@ -27,6 +27,8 @@ exports.run = async (client, message, args) => {
           const invite = invites.first()
 
           bumpLogic(client, message, row, invite)
+          client.embed.send(message, { desc: `Bumped sucessfully to **${row.length - 1}** guilds.` })
+          lastDate[message.guild.id] = now
         } else {
           // Create invite.
           let channelID
