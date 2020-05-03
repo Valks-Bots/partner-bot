@@ -3,6 +3,8 @@
 ## About
 Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown.
 
+![Preview](https://i.gyazo.com/6fe2e372a70364f9cee3d2a96af1ddaf.png)
+
 ## Setup
 1. Clone `https://github.com/valkyrienyanko/partner-bot.git`
 2. Download and install `LTS` [Node.js](https://nodejs.org/en/)
