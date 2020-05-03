@@ -93,7 +93,7 @@ function bumpLogic (client, message, row, invite) {
 			  },
 			  {
 				  name: `Emojis: \`${message.guild.emojis.cache.size}\``,
-				  value: `${guildInfo.emojis.join(' ')}`,
+				  value: message.guild.emojis.cache.size === 0 ? 'No Emotes' : `${guildInfo.emojis.join(' ')}`,
 				  inline: false
 			  }
             ],
