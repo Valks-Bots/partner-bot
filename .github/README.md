@@ -6,6 +6,7 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 ![Preview](https://i.gyazo.com/6fe2e372a70364f9cee3d2a96af1ddaf.png)
 
 ## Setup
+**Note that this project was designed to run on local Windows systems.**
 1. Clone `https://github.com/valkyrienyanko/partner-bot.git`
 2. Download and install `LTS` [Node.js](https://nodejs.org/en/)
 3. Install yarn `npm i -g yarn`
