@@ -6,7 +6,7 @@
   "scripts": {
     "dev:server": "cd src && nodemon -q bot.js",
     "dev:lint": "cd src && eslint --fix .",
-	"dev:docs": "cd src && jsdoc -r --readme ../.github/README.md --package ../package.json -d ../docs ."
+	"dev:docs": "cd src && jsdoc -r --readme ../.github/README.md -d ../docs ."
   },
   "author": "valkyrienyanko",
   "license": "ISC",
