@@ -1,7 +1,14 @@
 /**
- * @file Set the description of the advertisement you want to bump.
+ * Set the description of the advertisement you want to bump.
+ * @module commands/desc
  */
 
+/**
+ * Execute command
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message of the command
+ * @param {string} args - The arguments of the command
+ */
 exports.run = async (client, message, args) => {
   const desc = args.join(' ')
   if (desc === undefined || desc === '') {
@@ -21,6 +28,7 @@ exports.run = async (client, message, args) => {
   client.embed.send(message, { desc: 'Description sucessfully updated.' })
 }
 
+/** Command Config */
 exports.conf = {
   enabled: true,
   aliases: [],
@@ -28,6 +36,7 @@ exports.conf = {
   permLevel: 'Server Owner'
 }
 
+/** Command Help */
 exports.help = {
   name: 'desc',
   usage: '<description>',

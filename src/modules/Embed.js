@@ -1,6 +1,6 @@
 /**
  * Create, send, edit Discord embeds.
- * @module Embed
+ * @module modules/Embed
  */
 
 /**

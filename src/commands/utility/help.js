@@ -1,7 +1,14 @@
 /**
- * @file Provides useful information.
+ * Provides useful information.
+ * @module commands/help
  */
 
+/**
+ * Execute command
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message of the command
+ * @param {string} args - The arguments of the command
+ */
 exports.run = async (client, message, args) => {
   client.embed.send(message, {
     title: 'Help',
@@ -35,6 +42,7 @@ exports.run = async (client, message, args) => {
   })
 }
 
+/** Command Config */
 exports.conf = {
   enabled: true,
   aliases: ['h'],
@@ -42,6 +50,7 @@ exports.conf = {
   permLevel: 'User'
 }
 
+/** Command Help */
 exports.help = {
   name: 'help',
   usage: '',

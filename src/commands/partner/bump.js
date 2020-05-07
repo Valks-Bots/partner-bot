@@ -1,10 +1,17 @@
 /**
- * @file Bump an advertisement.
+ * Bump an advertisement.
+ * @module commands/bump
  */
 
 const prettyMS = require('pretty-ms')
 const lastDate = []
 
+/**
+ * Execute command
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message of the command
+ * @param {string} args - The arguments of the command
+ */
 exports.run = async (client, message, args) => {
   const ignoreCooldown = false
   const now = new Date()
@@ -169,6 +176,7 @@ function getGuildInfo (guild) {
   }
 }
 
+/** Command Config */
 exports.conf = {
   enabled: true,
   aliases: [],
@@ -176,6 +184,7 @@ exports.conf = {
   permLevel: 'User'
 }
 
+/** Command Help */
 exports.help = {
   name: 'bump',
   usage: '',

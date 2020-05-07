@@ -1,7 +1,14 @@
 /**
- * @file Preview the advertisement before bumping.
+ * Preview the advertisement.
+ * @module commands/preview
  */
 
+/**
+ * Execute command
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message of the command
+ * @param {string} args - The arguments of the command
+ */
 exports.run = async (client, message, args) => {
   client.database.get('SELECT * FROM settings WHERE guildid = ?', [message.guild.id]).then(row => {
     const str = [
@@ -13,6 +20,7 @@ exports.run = async (client, message, args) => {
   })
 }
 
+/** Command Config */
 exports.conf = {
   enabled: true,
   aliases: [],
@@ -20,6 +28,7 @@ exports.conf = {
   permLevel: 'Server Owner'
 }
 
+/** Command Help */
 exports.help = {
   name: 'preview',
   usage: '',

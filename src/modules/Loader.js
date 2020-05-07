@@ -1,6 +1,6 @@
 /**
  * Loading modules, commands, events as well as checking the current Discord status.
- * @module Loader
+ * @module modules/Loader
  */
 
 const { promisify } = require('util')

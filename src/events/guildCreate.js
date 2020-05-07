@@ -1,6 +1,8 @@
 /**
  * Fires when the bot joins a new guild
- * @event guildCreate
+ * @module events/guildCreate
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Guild} guild - The guild the bot joined
  */
 
 module.exports = async (client, guild) => {

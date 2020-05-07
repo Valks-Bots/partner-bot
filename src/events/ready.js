@@ -1,6 +1,7 @@
 /**
  * Fires when the bot starts up
- * @event ready
+ * @module events/ready
+ * @param {Discord.Client} client - The Discord client
  */
 
 module.exports = async client => {

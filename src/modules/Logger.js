@@ -1,6 +1,6 @@
 /**
  * Beautiful console logger with color and timestamps.
- * @module Logger
+ * @module modules/Logger
  */
 
 const chalk = require('chalk')

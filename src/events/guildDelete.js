@@ -1,6 +1,8 @@
 /**
  * Fires when the bot leaves a guild
- * @event guildDelete
+ * @module events/guildDelete
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Guild} guild - The guild the bot left
  */
 
 module.exports = async (client, guild) => {

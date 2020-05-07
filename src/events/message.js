@@ -1,6 +1,8 @@
 /**
  * Fires when the bot receives a message
- * @event message
+ * @module events/message
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message that was received
  */
 
 module.exports = async (client, message) => {

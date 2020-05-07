@@ -1,6 +1,6 @@
 /**
  * A cluster of utility functions.
- * @module functions
+ * @module modules/functions
  */
 
 module.exports = (client) => {

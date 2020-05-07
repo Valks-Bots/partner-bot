@@ -1,7 +1,14 @@
 /**
- * @file Initialize the bot in the guild the command was executed in.
+ * Initialize the bot in the guild the command was executed in.
+ * @module commands/init
  */
 
+/**
+ * Execute command
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message of the command
+ * @param {string} args - The arguments of the command
+ */
 exports.run = async (client, message, args) => {
   if (args[0] === undefined) {
     return client.embed.send(message, { desc: 'Please specify a channel.' })
@@ -15,6 +22,7 @@ exports.run = async (client, message, args) => {
   }
 }
 
+/** Command Config */
 exports.conf = {
   enabled: true,
   aliases: [],
@@ -22,6 +30,7 @@ exports.conf = {
   permLevel: 'Server Owner'
 }
 
+/** Command Help */
 exports.help = {
   name: 'init',
   usage: '<channel>',
