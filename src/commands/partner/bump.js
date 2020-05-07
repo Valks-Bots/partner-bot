@@ -1,3 +1,7 @@
+/**
+ * @file Bump an advertisement.
+ */
+
 const prettyMS = require('pretty-ms')
 const lastDate = []
 
@@ -11,9 +15,10 @@ exports.run = async (client, message, args) => {
     return
   }
 
-  if (lastDate[message.guild.id] === undefined)
+  if (lastDate[message.guild.id] === undefined) {
     lastDate[message.guild.id] = 0
-  
+  }
+
   if (now - lastDate[message.guild.id] > cooldown || ignoreCooldown) {
     // It's been more than the set cooldown
     client.database.all('SELECT * FROM settings').then(async row => {
@@ -22,14 +27,14 @@ exports.run = async (client, message, args) => {
           client.embed.send(message, { desc: 'There are no other guilds for your advertisement to go, `v!invite` and setup the bot on other guilds before trying again.' })
           return
         }
-		
-		let invite
+
+        let invite
 
         if (invites.size > 0) {
           invite = invites.first() // Invite Exists
         } else {
           let channelID // Invite does not exist. Create one.
-		  const channels = message.guild.channels.cache
+          const channels = message.guild.channels.cache
           for (const c of channels) {
             const channelType = c[1].type
             if (channelType === 'text') {
@@ -37,13 +42,13 @@ exports.run = async (client, message, args) => {
               break
             }
           }
-		  
-		  const channel = channels.get(message.guild.systemChannelID || channelID)
-		  invite = await channel.createInvite()
+
+          const channel = channels.get(message.guild.systemChannelID || channelID)
+          invite = await channel.createInvite()
         }
-		
-		bumpLogic(client, message, row, invite)
-		lastDate[message.guild.id] = now
+
+        bumpLogic(client, message, row, invite)
+        lastDate[message.guild.id] = now
       }).catch(console.error)
     })
   } else {
@@ -77,32 +82,32 @@ function bumpLogic (client, message, row, invite) {
       lastDate[message.guild.id] = 0
       return client.embed.send(message, { desc: `A description for ${message.guild.name} has not been set yet. Please set one.` })
     }
-	
+
     if (guild) {
       if (guild.channels.cache.has(row[i].partner) && guild.id !== message.guild.id) {
-		const guildInfo = getGuildInfo(message.guild)
+        const guildInfo = getGuildInfo(message.guild)
         guild.channels.cache.get(row[i].partner).send({
           embed: {
             title: guildInfo.name,
             description: `${desc}\n\n[Invite](${invite.url})`,
             fields: [
-			  {
-				  name: `Members: \`${message.guild.members.cache.size}\` (\`${guildInfo.humans}%\` Humans | \`${guildInfo.bots}%\` Bots)`,
-				  value: `Online: \`${guildInfo.online}\` | Idle: \`${guildInfo.idle}\` | DnD: \`${guildInfo.dnd}\``,
-				  inline: false
-			  },
-			  {
-				  name: `Emojis: \`${message.guild.emojis.cache.size}\``,
-				  value: message.guild.emojis.cache.size === 0 ? 'No Emotes' : `${guildInfo.emojis.join(' ')}`,
-				  inline: false
-			  }
+              {
+                name: `Members: \`${message.guild.members.cache.size}\` (\`${guildInfo.humans}%\` Humans | \`${guildInfo.bots}%\` Bots)`,
+                value: `Online: \`${guildInfo.online}\` | Idle: \`${guildInfo.idle}\` | DnD: \`${guildInfo.dnd}\``,
+                inline: false
+              },
+              {
+                name: `Emojis: \`${message.guild.emojis.cache.size}\``,
+                value: message.guild.emojis.cache.size === 0 ? 'No Emotes' : `${guildInfo.emojis.join(' ')}`,
+                inline: false
+              }
             ],
             thumbnail: {
               url: message.guild.iconURL()
             },
-			footer: {
-				text: `Created: ${message.guild.createdAt} | Region: ${message.guild.region}`
-			}
+            footer: {
+              text: `Created: ${message.guild.createdAt} | Region: ${message.guild.region}`
+            }
           }
         })
       }
@@ -112,55 +117,56 @@ function bumpLogic (client, message, row, invite) {
   client.embed.send(message, { desc: `Bumped to ${row.length - 1} guilds!` })
 }
 
-function getGuildInfo(guild) 
-{
-	const members = guild.members.cache
-	const roles = guild.roles.cache
-	const channels = guild.channels.cache
-	const emojis = guild.emojis.cache
-	
-	let online = 0
-	let idle = 0
-	let dnd = 0
-	let humans = 0
-	let bots = 0
-	
-	let humanPercent = 0
-	let botPercent = 0
-	
-	let emotes = []
-	
-	members.forEach(member => {
-		const status = member.presence.clientStatus
-		if (!member.user.bot && status !== null) {
-			humans++
-			if (status.web === 'online' || status.desktop === 'online' || status.mobile === 'online')
-				online++
-			if (status.web === 'idle' || status.desktop === 'idle' || status.mobile === 'idle')
-				idle++
-			if (status.web === 'dnd' || status.desktop === 'dnd' || status.mobile === 'dnd')
-				dnd++
-		} else {
-			bots++
-		}
-	})
-	
-	emojis.forEach(emoji => {
-		emotes.push(`${emoji.toString()}`)
-	})
-	
-	humanPercent = (humans / members.size) * 100
-	botPercent = (bots / members.size) * 100
-	
-	return {
-		name: guild.name,
-		online: online,
-		idle: idle,
-		dnd: dnd,
-		humans: humanPercent,
-		bots: botPercent,
-		emojis: emotes
-	}
+function getGuildInfo (guild) {
+  const members = guild.members.cache
+  const emojis = guild.emojis.cache
+
+  let online = 0
+  let idle = 0
+  let dnd = 0
+  let humans = 0
+  let bots = 0
+
+  let humanPercent = 0
+  let botPercent = 0
+
+  const emotes = []
+
+  members.forEach(member => {
+    const status = member.presence.clientStatus
+    if (!member.user.bot && status !== null) {
+      humans++
+      if (status.web === 'online' || status.desktop === 'online' || status.mobile === 'online') {
+        online++
+      }
+
+      if (status.web === 'idle' || status.desktop === 'idle' || status.mobile === 'idle') {
+        idle++
+      }
+      if (status.web === 'dnd' || status.desktop === 'dnd' || status.mobile === 'dnd') {
+        dnd++
+      }
+    } else {
+      bots++
+    }
+  })
+
+  emojis.forEach(emoji => {
+    emotes.push(`${emoji.toString()}`)
+  })
+
+  humanPercent = (humans / members.size) * 100
+  botPercent = (bots / members.size) * 100
+
+  return {
+    name: guild.name,
+    online: online,
+    idle: idle,
+    dnd: dnd,
+    humans: humanPercent,
+    bots: botPercent,
+    emojis: emotes
+  }
 }
 
 exports.conf = {

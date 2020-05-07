@@ -1,3 +1,7 @@
+/**
+ * @file Preview the advertisement before bumping.
+ */
+
 exports.run = async (client, message, args) => {
   client.database.get('SELECT * FROM settings WHERE guildid = ?', [message.guild.id]).then(row => {
     const str = [

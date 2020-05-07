@@ -29,7 +29,6 @@ for (const permLevel of client.config.permLevels) {
 const init = async () => {
   console.clear()
 
-  // Copyright Notice - Do not Remove
   console.log('------------------------------------------------------------------------')
   console.log('If you need any help, you can talk to me through discord at valk#3277')
   console.log('You can also email me at sebastianbelle074@gmail.com')

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modules/Embed.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modules/Embed.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Create, send, edit Discord embeds.
+ * @module Embed
+ */
+
+/**
+ * Creates a custom embed
+ * @param {Discord.Message} message - The message of the embed
+ * @param {string} title - The title of the embed
+ * @param {string} desc - The description of the embed
+ * @param {object} fields - The fields of the embed (optional)
+ * @param {string} thumbnail - The URL for the thumbnail of the embed
+ * @param {string} image - The URL for the image of the embed
+ * @param {string} color - The HEX color code of the embed
+ * @param {object} files - The files attached alongside the embed
+ * @param {boolean} code - If set to true all the fields along with the description will be surrounded by code blocks
+ * @param {boolean} inline - Should all the fields be inlined by default (set to true by default)
+ */
+exports.create = (message, { title, desc, fields, thumbnail, image, color, files, code, inline = true }) => {
+  if ((code !== undefined || code) &amp;&amp; fields !== undefined) {
+    for (const field of fields) {
+      if (field.code !== undefined &amp;&amp; !field.code) { continue }
+      field.value = `\`\`\`${typeof code === 'string' ? code : ''}\n${field.value}\`\`\``
+    }
+  }
+
+  if (inline &amp;&amp; fields !== undefined) {
+    for (const field of fields) {
+      field.inline = true
+    }
+  }
+
+  return {
+    embed: {
+      title: title,
+      description: Array.isArray(desc) ? desc.join('\n') : desc,
+      footer: {
+        text: `${message.author.tag} (${message.author.id}) &lt;${message.content.slice(0, 20)}${message.content.length > 20 ? '...' : ''}>`,
+        icon_url: message.author.avatarURL()
+      },
+      thumbnail: {
+        url: thumbnail
+      },
+      image: {
+        url: image
+      },
+      color: color,
+      timestamp: new Date(),
+      fields: fields,
+      files: files
+    }
+  }
+}
+
+/**
+ * Send a custom embed
+ * @param {Discord.Message} message - The message of the embed
+ * @param {string} title - The title of the embed
+ * @param {string} desc - The description of the embed
+ * @param {object} fields - The fields of the embed (optional)
+ * @param {string} thumbnail - The URL for the thumbnail of the embed
+ * @param {string} image - The URL for the image of the embed
+ * @param {string} color - The HEX color code of the embed
+ * @param {object} files - The files attached alongside the embed
+ * @param {boolean} code - If set to true all the fields along with the description will be surrounded by code blocks
+ * @param {boolean} inline - Should all the fields be inlined by default (set to true by default)
+ */
+exports.send = async (message, { title, desc, fields, thumbnail, image, color, files, code, inline }) => {
+  if (!message.guild.me.hasPermission('EMBED_LINKS')) {
+    await message.channel.send('I need the `EMBED_LINKS` permission.')
+    return
+  }
+  const m = await message.channel.send(this.create(message, { title, desc, fields, thumbnail, image, color, files, code, inline }))
+  return m
+}
+
+/**
+ * Edit a custom embed
+ * @param {Discord.Message} message - The message of the embed
+ * @param {string} title - The title of the embed
+ * @param {string} desc - The description of the embed
+ * @param {object} fields - The fields of the embed (optional)
+ * @param {string} thumbnail - The URL for the thumbnail of the embed
+ * @param {string} image - The URL for the image of the embed
+ * @param {string} color - The HEX color code of the embed
+ * @param {object} files - The files attached alongside the embed
+ * @param {boolean} code - If set to true all the fields along with the description will be surrounded by code blocks
+ * @param {boolean} inline - Should all the fields be inlined by default (set to true by default)
+ */
+exports.edit = async (message, msg, { title, desc, fields, thumbnail, image, color, files, code, inline }) => {
+  if (!message.guild.me.hasPermission('EMBED_LINKS')) {
+    await message.channel.send('I need the `EMBED_LINKS` permission.')
+    return
+  }
+  const m = await msg.edit(this.create(message, { title, desc, fields, thumbnail, image, color, files, code, inline }))
+  return m
+}
+
+/**
+ * Send a embed in debug format
+ * @param {Discord.Message} message = The message of the embed
+ * @param {string} content = The description of the embed
+ */
+exports.debug = async (message, content) => {
+  if (!message.guild.me.hasPermission('EMBED_LINKS')) {
+    await message.channel.send('I need the `EMBED_LINKS` permission.')
+    return
+  }
+  const m = await message.channel.send(this.create(message, {
+    desc: `\`\`\`${content}\`\`\``
+  }))
+  return m
+}
+
+/**
+ * Send a embed in error format
+ * @param {Discord.Message} message = The message of the embed
+ * @param {Error} error = The error
+ * @param {string} content = A helpful message appended to the beginning of the description
+ */
+exports.error = async (message, error, content = '') => {
+  if (!message.guild.me.hasPermission('EMBED_LINKS')) {
+    await message.channel.send('I need the `EMBED_LINKS` permission.')
+    return
+  }
+  const m = await message.channel.send(this.create(message, {
+    desc: [content, '```js', `${error.name}: ${error.message}`, '```']
+  }))
+  return m
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Embed.html">Embed</a></li><li><a href="module-functions.html">functions</a></li><li><a href="module-Loader.html">Loader</a></li><li><a href="module-Logger.html">Logger</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:guildCreate">guildCreate</a></li><li><a href="global.html#event:guildDelete">guildDelete</a></li><li><a href="global.html#event:message">message</a></li><li><a href="global.html#event:ready">ready</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Wed May 06 2020 22:33:44 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,3 +1,7 @@
+/**
+ * @file Initialize the bot in the guild the command was executed in.
+ */
+
 exports.run = async (client, message, args) => {
   if (args[0] === undefined) {
     return client.embed.send(message, { desc: 'Please specify a channel.' })

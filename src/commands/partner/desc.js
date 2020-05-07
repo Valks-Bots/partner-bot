@@ -1,3 +1,7 @@
+/**
+ * @file Set the description of the advertisement you want to bump.
+ */
+
 exports.run = async (client, message, args) => {
   const desc = args.join(' ')
   if (desc === undefined || desc === '') {

@@ -1,3 +1,7 @@
+/**
+ * @file Provides useful information.
+ */
+
 exports.run = async (client, message, args) => {
   client.embed.send(message, {
     title: 'Help',

@@ -14,7 +14,8 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 
 ## Table of Contents
 1. [Install](#install)
-2. [Contributing](#contributing)
+2. [Documentation](#documentation)
+3. [Contributing](#contributing)
 
 <h2 align="center">Install</h2>
 
@@ -28,6 +29,8 @@ Partner bot is a discord bot that uses discord-js and sqlite to automate partner
 7. Create an invite link for the bot by grabbing its token ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=ID&scope=bot&permissions=27681`
 8. Invite the bot to at least `2` unique guilds
 9. Continue setup with `t!help` (You can change the prefix in the config)
+
+<h2 align="center">Documentation</h2>
 
 <h2 align="center">Contributing</h2>
 

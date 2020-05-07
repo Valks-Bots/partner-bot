@@ -1,3 +1,7 @@
+/**
+ * @file The bot leaves the guild the command was executed in.
+ */
+
 exports.run = async (client, message, args) => {
   message.guild.leave()
 }

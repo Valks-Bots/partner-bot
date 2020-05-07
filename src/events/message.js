@@ -1,3 +1,8 @@
+/**
+ * Fires when the bot receives a message
+ * @event message
+ */
+
 module.exports = async (client, message) => {
   if (message.author.bot) return // We don't want the bot reacting to itself..
 

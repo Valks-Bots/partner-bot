@@ -1,6 +1,15 @@
+/**
+ * Loading modules, commands, events as well as checking the current Discord status.
+ * @module Loader
+ */
+
 const { promisify } = require('util')
 const readdir = promisify(require('fs').readdir)
 
+/**
+ * Register all the projects modules
+ * @param {Discord.Client} client - The Discord client
+ */
 exports.registerModules = async (client) => {
   const moduleFiles = await readdir('./modules/')
   moduleFiles.forEach(file => {
@@ -10,6 +19,10 @@ exports.registerModules = async (client) => {
   })
 }
 
+/**
+ * Register all the projects commands
+ * @param {Discord.Client} client - The Discord client
+ */
 exports.registerCommands = async (client) => {
   const cmdFolders = await readdir('./commands/')
   cmdFolders.forEach(async folder => {
@@ -29,6 +42,10 @@ exports.registerCommands = async (client) => {
   })
 }
 
+/**
+ * Register all the projects events
+ * @param {Discord.Client} client - The Discord client
+ */
 exports.registerEvents = async (client) => {
   const eventFiles = await readdir('./events/')
   client.logger.log(`Loading ${eventFiles.length} events`)
@@ -43,6 +60,10 @@ exports.registerEvents = async (client) => {
   client.logger.log(`Loaded: [${registeredEvents.join(' ')}]`)
 }
 
+/**
+ * Check the current Discord status
+ * @param {Discord.Client} client - The Discord client
+ */
 exports.checkDiscordStatus = (client) => {
   require('axios').get(client.config.statusURL).then(({ data }) => client.logger.log(`Discord API Status: ${data.status.description}`))
 }

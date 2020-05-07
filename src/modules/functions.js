@@ -1,3 +1,8 @@
+/**
+ * A cluster of utility functions.
+ * @module functions
+ */
+
 module.exports = (client) => {
   client.find = (message, args, type = 'member') => {
     const guilds = client.guilds.cache
