@@ -2,13 +2,13 @@
 ![Preview](https://i.gyazo.com/6fe2e372a70364f9cee3d2a96af1ddaf.png)
 
 [![Quality Gate Status][quality]][quality-url]
-[![Lines of Code][lines]](lines-url)
-[![Bugs][bugs]](bugs-url)
-[![GitHub license][license]](license-url)
-[![Issues][issues]](issues-url)
-[![Discord][discord]](discord-url)
-[![GitHub stars][stars]](stars-url)
-[![GitHub forks][forks]](forks-url)
+[![Lines of Code][lines]][lines-url]
+[![Bugs][bugs]][bugs-url]
+[![GitHub license][license]][license-url]
+[![Issues][issues]][issues-url]
+[![Discord][discord]][discord-url]
+[![GitHub stars][stars]][stars-url]
+[![GitHub forks][forks]][forks-url]
 
 <h1>partnerbot</h1>
 Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown.
@@ -55,7 +55,7 @@ If you have any questions, send me a message over discord at **valk#3277**.
 [issues]: https://img.shields.io/github/issues/valkyrienyanko/partner-bot
 [issues-url]: https://github.com/valkyrienyanko/partner-bot/issues
 [discord]: https://img.shields.io/discord/453710350454620160.svg
-[discord-url]: https://discordapp.com/invite/N9QVxbM
+[discord-url]: https://discord.gg/thMupbv
 [stars]: https://img.shields.io/github/stars/valkyrienyanko/partner-bot?color=brightgreen
 [stars-url]: https://github.com/valkyrienyanko/partner-bot/stargazers
 [forks]: https://img.shields.io/github/forks/valkyrienyanko/partner-bot?color=brightgreen
