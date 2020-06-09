@@ -9,7 +9,7 @@
 </div>
 
 <p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown.
-  <br><br><br><br>
+  <br><br><br><br><br><br><br><br>
 </p>
 
 ## Preview of Advertisement
