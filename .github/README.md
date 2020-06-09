@@ -17,15 +17,8 @@
     <br>
 </p>
 
-## Table of Contents
-
-1. [Install](#install)
-2. [Documentation](https://valkyrienyanko.github.io/partner-bot/)
-3. [Contributing](https://github.com/valkyrienyanko/partner-bot/blob/master/.github/CONTRIBUTING.md)
-
-## Install
-
-**Note that this project was designed to run on local Windows systems.**
+## Install for Windows
+If you're interested in contributing, see [CONTRIBUTING.md](https://github.com/valkyrienyanko/partner-bot/blob/master/.github/CONTRIBUTING.md)
 1. Clone `https://github.com/valkyrienyanko/partner-bot.git`
 2. Download and install `LTS` [Node.js](https://nodejs.org/en/)
 3. Install yarn with `npm i -g yarn`
