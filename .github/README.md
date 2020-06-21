@@ -8,11 +8,11 @@
 
 </div>
 
-<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown. If you're interested in contributing, see [CONTRIBUTING.md](https://github.com/valkyrienyanko/partner-bot/blob/master/.github/CONTRIBUTING.md)
+<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown.
   <br><br><br>
 </p>
 
-## Preview of Advertisement
+## Preview of Bump Message
 ![Preview](https://i.gyazo.com/6fe2e372a70364f9cee3d2a96af1ddaf.png)
 
 ## Install on Glitch
