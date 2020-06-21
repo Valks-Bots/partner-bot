@@ -10,6 +10,9 @@
   },
   "author": "valkyrienyanko",
   "license": "ISC",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "axios": "^0.19.2",
     "chalk": "^4.0.0",
