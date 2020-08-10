@@ -19,10 +19,11 @@
 1. Create an account on https://glitch.com
 2. Create new project -> import from GitHub -> `https://github.com/Valks-Bots/partner-bot`
 3. Click src folder dots icon to right -> create new file -> `.env` -> put `BOT_TOKEN=BotTokenHere` inside
-4. Go to tools -> open up Terminal -> type `npm start`
-5. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
-6. Invite the bot to at least `2` unique guilds
-7. Continue setup with `t!help`
+4. Change `ownerID` in `config.js` to your user ID
+5. Go to tools -> open up Terminal -> type `npm start`
+6. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
+7. Invite the bot to at least `2` unique guilds
+8. Continue setup with `t!help`
 
 ## Install on Windows
 1. Clone `https://github.com/valkyrienyanko/partner-bot.git`
@@ -31,10 +32,11 @@
 4. Run `yarn install` in the project root directory
 5. Generate a bot token from the [Discord Developers Portal](https://discordapp.com/developers/applications/)
 6. Create a `.env` file in the `src` folder with the following content inside (`BOT_TOKEN=BotTokenHere`)
-7. Start server with `yarn start`
-8. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
-9. Invite the bot to at least `2` unique guilds
-10. Continue setup with `t!help`
+7. Change `ownerID` in `config.js` to your user ID
+8. Start server with `yarn start`
+9. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
+10. Invite the bot to at least `2` unique guilds
+11. Continue setup with `t!help`
 
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
 [quality-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
