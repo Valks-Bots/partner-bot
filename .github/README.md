@@ -38,6 +38,15 @@
 10. Invite the bot to at least `2` unique guilds
 11. Continue setup with `t!help`
 
+## Install on Mac
+Feel free to create a PR and fill this section out.
+
+## Install on Linux
+Feel free to create a PR and fill this section out.
+
+## Install on Heroku
+Feel free to create a PR and fill this section out.
+
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
 [quality-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
 [lines]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=ncloc
