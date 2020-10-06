@@ -162,8 +162,8 @@ function getGuildInfo (guild) {
     emotes.push(`${emoji.toString()}`)
   })
 
-  humanPercent = (humans / members.size) * 100
-  botPercent = (bots / members.size) * 100
+  humanPercent = Math.round((humans / members.size) * 100)
+  botPercent = Math.round((bots / members.size) * 100)
 
   return {
     name: guild.name,
