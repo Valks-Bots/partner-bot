@@ -103,11 +103,11 @@ function bumpLogic (client, message, row, invite) {
                 value: `Online: \`${guildInfo.online}\` | Idle: \`${guildInfo.idle}\` | DnD: \`${guildInfo.dnd}\``,
                 inline: false
               },
-              {
-                name: `Emojis: \`${message.guild.emojis.cache.size}\``,
-                value: message.guild.emojis.cache.size === 0 ? 'No Emotes' : `${guildInfo.emojis.join(' ')}`,
-                inline: false
-              }
+              
+              
+
+
+
             ],
             thumbnail: {
               url: message.guild.iconURL()
