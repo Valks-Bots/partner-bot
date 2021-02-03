@@ -8,7 +8,7 @@
 
 </div>
 
-<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown.
+<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown. This bot has only been tested on a total of 4 servers, issues may arise if the bot has to handle 100 or more servers all sending messages between each other simultaneously.
   <br><br><br>
 </p>
 
@@ -46,6 +46,10 @@ Feel free to create a PR and fill this section out.
 
 ## Install on Heroku
 Feel free to create a PR and fill this section out.
+
+## FAQ
+Q: How do I increase the max description limit?  
+A: Edit the `max_length` config value in `src/config.js`  
 
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
 [quality-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
