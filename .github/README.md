@@ -51,6 +51,9 @@ Feel free to create a PR and fill this section out.
 Q: How do I increase the max description limit?  
 A: Edit the `max_length` config value in `src/config.js`  
 
+Q: I am getting this error in the console "TypeError: Cannot read property 'tag' of undefined"  
+A: You need to update the config setting `ownerID` with your user ID.  
+
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
 [quality-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
 [lines]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=ncloc
