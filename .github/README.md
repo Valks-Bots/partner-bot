@@ -54,6 +54,9 @@ A: Edit the `max_length` config value in `src/config.js`
 Q: I am getting this error in the console "`TypeError: Cannot read property 'tag' of undefined`", what do I do?  
 A: Edit the `ownerID` config value in `src/config.js` with your user ID.  
 
+Q: Everything I restart the bot, all the information I had setup has been wiped?  
+A: If you're using Heroku, Glitch or any other "free" online hosting service then it's highly likely that the service is deleting the database everytime you restart the bot or if at best deleting it every 12 or 24 hours. If you host the bot on your local machine, you will not run into this problem.  
+
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
 [quality-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
 [lines]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=ncloc
