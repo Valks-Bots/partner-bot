@@ -2,3 +2,4 @@ node_modules/
 database.sqlite
 .env
 yarn-error.log
+yarn.lock
