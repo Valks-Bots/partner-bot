@@ -45,7 +45,14 @@ Feel free to create a PR and fill this section out.
 Feel free to create a PR and fill this section out.
 
 ## Install on Heroku
-Feel free to create a PR and fill this section out.
+1. Create a [Heroku](https://signup.heroku.com/) account.
+2. Create a new App from your [Dashboard](https://dashboard.heroku.com/new-app). 
+3. Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line). 
+4. Open a terminal in your project and run `heroku login`.
+5. Create a Git remote using `heroku git:remote -a <APP-NAME>`.
+6. Create a file in your project called `Procfile`. (Must be in same folder as index.js)
+7. Insert `worker:node index.js` to the Procfile. 
+8. Commit and push using `git add .` `git commit -m "<Message>"` `git push heroku master`
 
 ## FAQ
 Q: How do I increase the max description limit?  
