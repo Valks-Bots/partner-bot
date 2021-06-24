@@ -1,0 +1,128 @@
+/**
+ * Setup the bot
+ * @module commands/quick-setup
+ */
+
+/**
+ * Execute command
+ * @param {Discord.Client} client - The Discord client
+ * @param {Discord.Message} message - The message of the command
+ * @param {string} args - The arguments of the command
+ */
+ 
+
+ const { MessageEmbed, MessageCollector } = require('discord.js')
+
+
+ exports.run = async (client, message, args) => {
+
+
+  const de = new MessageEmbed()
+             
+  .setDescription('Specify a guild description. Note that your guild invite will be attached automatically.')
+  .setColor('YELLOW');
+
+  
+
+     let start = await message.channel.send(de);
+ 
+     const filter = m => m.author.id === message.author.id;
+     const descCollector = new MessageCollector(message.channel, filter, { max: 2 });
+ 
+
+     let desc;
+
+
+     descCollector.on('collect', async msg => {
+
+         desc = msg.content;
+
+         if (desc.includes('http') || desc.includes('@everyone') || desc.includes('@here')) {
+
+          message.channel.send('No links or mentions in the description please, try again')
+    
+          descCollector.stop();
+          return
+        }
+        if (desc.length < client.config.ad.desc.min_length) {
+    
+          message.channel.send(`Description must have at least ${client.config.ad.desc.min_length} characters in it, try again `)
+    
+          descCollector.stop();
+          return
+        }
+    
+        if (desc.length > client.config.ad.desc.max_length) {
+          message.channel.send(`Description can not be more then ${client.config.ad.desc.max_length} characters long, try again`)
+    
+          descCollector.stop();
+          return
+        }
+          const second = new MessageEmbed()
+              .setDescription('now specify a channel')
+              .setColor('YELLOW');
+
+         msg.channel.send(second);
+         
+         descCollector.stop();
+ 
+         const channelFilter = m => m.author.id === message.author.id;
+
+         const channelCollector = new MessageCollector(message.channel, channelFilter, { max: 1 });
+ 
+         channelCollector.on('collect', async msg => {
+             let Channel = client.guilds.cache.get(msg.guild.id).channels.cache.find(channel => [channel.name, channel.id].includes(args[0].replace(/[<#>]/g, '')))
+             if (!Channel) {
+                 msg.channel.send('Invalid channel, try again');
+                 channelCollector.stop();
+                 return;
+                 
+             }
+ 
+
+       
+         
+         await msg.channel.send('all setup');
+
+ 
+
+       
+             await creatembed(desc, Channel)
+         })
+ 
+     })
+ 
+ 
+ 
+ async function creatembed(desc, Channel) {
+ 
+  client.database.run('UPDATE settings SET partner = ? WHERE guildid = ?', [Channel.id, message.guild.id])
+
+  client.database.run('UPDATE settings SET desc = ? WHERE guildid = ?', [desc, message.guild.id])
+  
+
+     const results = new MessageEmbed()
+     .setTitle('the results')
+     .addField('desc', desc)
+     .addField('channel', Channel)
+     .setColor('RANDOM');
+ 
+ let msg = await message.channel.send(results);
+ }
+     }
+ 
+ 
+ /** Command Config */
+ exports.conf = {
+   enabled: true,
+   aliases: ['setup'],
+   guildOnly: false,
+   permLevel: 'Server Owner'
+ }
+ 
+ /** Command Help */
+ exports.help = {
+   name: 'quick-setup',
+   usage: '<description> then <channel>',
+   description: 'setup the bot.'
+ }
