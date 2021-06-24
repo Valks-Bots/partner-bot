@@ -141,20 +141,20 @@ function getGuildInfo (guild) {
 
   members.forEach(member => {
     const status = member.presence.clientStatus
-    if (!member.user.bot && status !== null) {
-      humans++
-      if (status.web === 'online' || status.desktop === 'online' || status.mobile === 'online') {
-        online++
-      }
+    if(member.user.bot) return bots++
+    else humans++
 
-      if (status.web === 'idle' || status.desktop === 'idle' || status.mobile === 'idle') {
-        idle++
-      }
-      if (status.web === 'dnd' || status.desktop === 'dnd' || status.mobile === 'dnd') {
-        dnd++
-      }
-    } else {
-      bots++
+    if (!status) return
+      
+    if (status.web === 'online' || status.desktop === 'online' || status.mobile === 'online') {
+      online++
+    }
+
+    if (status.web === 'idle' || status.desktop === 'idle' || status.mobile === 'idle') {
+      idle++
+    }
+    if (status.web === 'dnd' || status.desktop === 'dnd' || status.mobile === 'dnd') {
+      dnd++
     }
   })
 
