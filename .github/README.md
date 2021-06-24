@@ -15,16 +15,6 @@
 ## Preview of Bump Message
 ![Preview](https://i.gyazo.com/6fe2e372a70364f9cee3d2a96af1ddaf.png)
 
-## Install on Glitch
-1. Create an account on https://glitch.com
-2. Create new project -> import from GitHub -> `https://github.com/Valks-Bots/partner-bot`
-3. Click src folder dots icon to right -> create new file -> `.env` -> put `BOT_TOKEN=BotTokenHere` inside
-4. Change `ownerID` in `config.js` to your user ID
-5. Go to tools -> open up Terminal -> type `npm start`
-6. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
-7. Invite the bot to at least `2` unique guilds
-8. Continue setup with `t!help`
-
 ## Install on Windows
 1. Clone `https://github.com/valkyrienyanko/partner-bot.git`
 2. Download and install `LTS` [Node.js](https://nodejs.org/en/)
@@ -38,12 +28,6 @@
 10. Invite the bot to at least `2` unique guilds
 11. Continue setup with `t!help`
 
-## Install on Mac
-Feel free to create a PR and fill this section out.
-
-## Install on Linux
-Feel free to create a PR and fill this section out.
-
 ## Install on Heroku
 1. Create a [Heroku](https://signup.heroku.com/) account.
 2. Create a new App from your [Dashboard](https://dashboard.heroku.com/new-app). 
@@ -54,6 +38,22 @@ Feel free to create a PR and fill this section out.
 7. Insert `worker:node index.js` to the Procfile. 
 8. Commit and push using `git add .` `git commit -m "<Message>"` `git push heroku master`
 
+## Install on Glitch
+1. Create an account on https://glitch.com
+2. Create new project -> import from GitHub -> `https://github.com/Valks-Bots/partner-bot`
+3. Click src folder dots icon to right -> create new file -> `.env` -> put `BOT_TOKEN=BotTokenHere` inside
+4. Change `ownerID` in `config.js` to your user ID
+5. Go to tools -> open up Terminal -> type `npm start`
+6. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
+7. Invite the bot to at least `2` unique guilds
+8. Continue setup with `t!help`
+
+## Install on Linux
+Feel free to create a PR and fill this section out.
+
+## Install on Mac
+Feel free to create a PR and fill this section out.
+
 ## FAQ
 Q: How do I increase the max description limit?  
 A: Edit the `max_length` config value in `src/config.js`  
@@ -61,7 +61,7 @@ A: Edit the `max_length` config value in `src/config.js`
 Q: I am getting this error in the console "`TypeError: Cannot read property 'tag' of undefined`", what do I do?  
 A: Edit the `ownerID` config value in `src/config.js` with your user ID.  
 
-Q: Everything I restart the bot, all the information I had setup has been wiped?  
+Q: Every time I restart the bot, all the information I had setup has been wiped?  
 A: If you're using Heroku, Glitch or any other "free" online hosting service then it's highly likely that the service is deleting the database everytime you restart the bot or if at best deleting it every 12 or 24 hours. If you host the bot on your local machine, you will not run into this problem.  
 
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
