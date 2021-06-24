@@ -39,7 +39,7 @@ exports.run = async (client, message, args) => {
       value: 'Useless command.'
     },
       {
-      name: 'setuo',
+      name: 'setup',
       value: 'quick setup the bot'
     }   
     ]
