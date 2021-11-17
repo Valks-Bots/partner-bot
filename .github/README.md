@@ -48,8 +48,20 @@
 7. Invite the bot to at least `2` unique guilds
 8. Continue setup with `t!help`
 
-## Install on Linux
-Feel free to create a PR and fill this section out.
+## Install on Linux (Ubuntu)
+1. Install git with `sudo apt update` then `sudo apt install git` then check git is installed `git --version` if you see a output your ready to move to the next step
+2. Clone using the command `git clone https://github.com/valkyrienyanko/partner-bot.git`
+3. Download and install Node with these commands `sudo apt update` after that finishes `sudo apt upgrade` then run `sudo apt install -y curl` after that run 
+4. `curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -` then `sudo apt install -y nodejs` than check nodejs version by running the command `node --version` if you see v16.x.x you have it installed (x.x should have 2 numbers depending on if node updated)
+5. Install yarn with `npm i -g yarn`
+6. Run `yarn install` in the project root directory
+7. Generate a bot token from the [Discord Developers Portal](https://discordapp.com/developers/applications/)
+8. Create a `.env` file in the `src` folder with the following content inside (`BOT_TOKEN=BotTokenHere`)
+9. Change `ownerID` in `config.js` to your user ID
+10. Start server with `yarn start`
+11. Create an invite link for the bot by grabbing its ID and putting it in the following URL `https://discordapp.com/api/oauth2/authorize?client_id=YOUR_BOT_ID_HERE&scope=bot&permissions=27681`
+12. Invite the bot to at least `2` unique guilds
+13. Continue setup with `t!help`
 
 ## Install on Mac
 Feel free to create a PR and fill this section out.
