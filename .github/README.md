@@ -4,11 +4,10 @@
   [![Lines of Code][lines]][lines-url]
   [![Bugs][bugs]][bugs-url]
   [![GitHub license][license]][license-url]
-  [![Discord][discord]][discord-url]
 
 </div>
 
-<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown. This bot has only been tested on a total of 4 servers, issues may arise if the bot has to handle 100 or more servers all sending messages between each other simultaneously.
+<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown. This bot has only been tested on a total of 4 servers, issues may arise if the bot has to handle 100 or more servers all sending messages between each other simultaneously. This project has been discontinued.
   <br><br><br>
 </p>
 
@@ -72,5 +71,3 @@ A: If you're using Heroku, Glitch or any other "free" online hosting service the
 [bugs-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
 [license]: https://img.shields.io/github/license/valkyrienyanko/partner-bot?color=brightgreen
 [license-url]: https://github.com/valkyrienyanko/partner-bot/blob/master/LICENSE
-[discord]: https://img.shields.io/discord/453710350454620160.svg
-[discord-url]: https://discord.gg/thMupbv
