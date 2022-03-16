@@ -47,12 +47,6 @@
 7. Invite the bot to at least `2` unique guilds
 8. Continue setup with `t!help`
 
-## Install on Linux
-Feel free to create a PR and fill this section out.
-
-## Install on Mac
-Feel free to create a PR and fill this section out.
-
 ## FAQ
 Q: How do I increase the max description limit?  
 A: Edit the `max_length` config value in `src/config.js`  
