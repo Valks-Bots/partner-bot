@@ -7,7 +7,7 @@
 
 </div>
 
-<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. When you bump your advertisement, the bot sends it to every guild that has the bot setup with a configurable cooldown. This bot has only been tested on a total of 4 servers, issues may arise if the bot has to handle 100 or more servers all sending messages between each other simultaneously. This project has been discontinued.
+<p align="center">Partner bot is a discord bot that uses discord-js and sqlite to automate partnerships in the big community of discord. The bot sends your advert to every guild that has the bot setup with a configurable cooldown when you use the bump command. This bot has only been tested on a total of 4 servers, issues may arise if the bot has to handle 100 or more servers all sending messages between each other simultaneously. This project has been discontinued. If this bot was helpful to you consider giving me credit by <a href="https://github.com/valkyrienyanko">linking back to my GitHub profile page</a>.
   <br><br><br>
 </p>
 
@@ -55,7 +55,7 @@ Q: I am getting this error in the console "`TypeError: Cannot read property 'tag
 A: Edit the `ownerID` config value in `src/config.js` with your user ID.  
 
 Q: Every time I restart the bot, all the information I had setup has been wiped?  
-A: If you're using Heroku, Glitch or any other "free" online hosting service then it's highly likely that the service is deleting the database everytime you restart the bot or if at best deleting it every 12 or 24 hours. If you host the bot on your local machine, you will not run into this problem.  
+A: If you are using Heroku, Glitch or any other "free" online hosting service then it is highly likely that the service is deleting the bots database every 12 to 24 hours. If you host the bot on your local machine, you will not run into this problem.  
 
 [quality]: https://sonarcloud.io/api/project_badges/measure?project=valkyrienyanko_partner-bot&metric=alert_status
 [quality-url]: https://sonarcloud.io/dashboard?id=valkyrienyanko_partner-bot
